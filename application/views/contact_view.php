@@ -58,7 +58,7 @@
    </section> <!-- end content -->
 
    <script>
-console.log('1');
+
 			$('#cForm').validate({
 				
 				rules : {
@@ -89,9 +89,9 @@ console.log('1');
 					
 				},
 				submitHandler : function(form){
-					console.log('2');
+					
 					let formData = $('#cForm').serialize();
-					console.log(formData);
+					
 					$.ajax({
 						method: 'post',
 						url : '<?php echo base_url() ?>contact/contactForm',
