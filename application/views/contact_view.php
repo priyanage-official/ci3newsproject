@@ -10,6 +10,13 @@
 
 						<p class="lead">Lorem ipsum Deserunt est dolore Ut Excepteur nulla occaecat magna occaecat Excepteur nisi esse veniam dolor consectetur minim qui nisi esse deserunt commodo ea enim ullamco non voluptate consectetur minim aliquip Ut incididunt amet ut cupidatat.</p> 
 
+						<?php if($this->session->tempdata('success')){?>
+							<span class="text-success"><?php echo $this->session->tempdata('success'); ?></span>
+						<?php } ?>
+
+						<?php if($this->session->tempdata('error')){?>
+							<span class="text-danger"><?php echo $this->session->tempdata('error'); ?></span>
+						<?php } ?>
 						<form id="cForm" action="javascript:void(0)" method="post" class="cForm">
 	  					   <fieldset>
 
@@ -51,8 +58,9 @@
    </section> <!-- end content -->
 
    <script>
-
+console.log('1');
 			$('#cForm').validate({
+				
 				rules : {
 
 					name : {
@@ -81,16 +89,18 @@
 					
 				},
 				submitHandler : function(form){
+					console.log('2');
 					let formData = $('#cForm').serialize();
-
+					console.log(formData);
 					$.ajax({
 						method: 'post',
 						url : '<?php echo base_url() ?>contact/contactForm',
 						data : formData,
 						dataType: 'json',
 						success : function(response){
-
-							console.log(response);
+							
+							window.location.href = '<?php echo base_url()?>contact';
+							
 						}
 					})
 				}

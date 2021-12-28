@@ -15,7 +15,7 @@ class Contact extends CI_Controller {
     public function contactForm(){
 
         $this->form_validation->set_rules('name','Name','required');
-        $this->form_validation->set_rules('email','Email','required|email');
+        $this->form_validation->set_rules('email','Email','required|valid_email');
         $this->form_validation->set_rules('phone','Phone','required');
         $this->form_validation->set_rules('subject','Subject','required');
         $this->form_validation->set_rules('message','Message','required');
@@ -33,12 +33,18 @@ class Contact extends CI_Controller {
             $this->load->model('contact_model');
             $result = $this->contact_model->saveContact($data);
             if($result){
+
+                $this->session->set_tempdata('success','Your form submitted successfully! We will reach you soon. ',3);
+                echo true;
                 
+            }else{
+                $this->session->set_tempdata('error','Something went wrong!',3); 
+                echo false;
             }
             
         }else{
 
-            $this->index();
+            echo json_encode(false);
         }
     }
 }
