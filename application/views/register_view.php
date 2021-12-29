@@ -34,18 +34,18 @@
 	                     </div>
 
 						 <div class="form-field">
-	  						      <input name="password" type="text" id="password" class="full-width" autocomplete="off" placeholder="Password" >
+	  						      <input name="password" type="password" id="password" class="full-width" autocomplete="off" placeholder="Password" >
 								  <span class="text-danger"><?php echo form_error('password')?></span>
 	                     </div>
 
 	                     <div class="message form-field">
                              <label>Gender : </label>
-	  						<input name="gender" type="radio" id="gender1" >Male
-	  						<input name="gender" type="radio" id="gender2">Female
+	  						<input name="gender" type="radio" id="gender1" value="male">Male
+	  						<input name="gender" type="radio" id="gender2" value="female">Female
 							<span class="text-danger"><?php echo form_error('gender')?></span>
 	                     </div>
 
-	                     <button type="submit" class="submit button-primary full-width-on-mobile">Submit</button>
+	                     <button type="submit" id="submitBtn" class="submit button-primary full-width-on-mobile">Submit</button>
 
 	  					   </fieldset>
 						</form>
@@ -73,7 +73,9 @@
                     email : true
                 },
                 password : {
-                    required : true
+                    required : true,
+                    minlength:3,
+                    maxlength:10
                 },
                 gender : {
                     required : true
@@ -83,12 +85,14 @@
                 fullname : 'Please enter your fullname!',
                 username : 'Please enter your username!',
                 email : 'Please enter your correct email address!',
-                password : 'Please enter your password!',
+               
                 gender : 'Please select your gender!',
             },
-            submitHndler : function(form){
+            submitHandler : function(form){
 
                 let formData = $('#rForm').serialize();
+                $('#submitBtn').css('background','grey');
+				$('#submitBtn').attr('disabled','disabled');
 
                 $.ajax({
                     method: 'post',
@@ -96,7 +100,8 @@
                     data: formData,
                     dataType: 'json',
                     success : function(response){
-                        console.log(response);
+                        //console.log(response);
+                        window.location.href = "<?php echo base_url()?>register";
                     }
                 })
             }
