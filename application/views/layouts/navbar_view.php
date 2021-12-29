@@ -15,13 +15,21 @@
 					<li <?php echo ($this->uri->segment(1) == '') ? 'class="current"' : ""; ?>><a href="<?php echo base_url() ?>" title="">Home</a></li>									
 					<li <?php echo ($this->uri->segment(1) == 'about') ? 'class="current"' : ""; ?>><a href="<?php echo base_url() ?>about" title="">About Us</a></li>	
 					<li <?php echo ($this->uri->segment(1) == 'contact') ? 'class="current"' : ""; ?>><a href="<?php echo base_url() ?>contact" title="">Contact Us</a></li>	
-                    <li class="has-children">
+                    <?php if(!empty($this->session->userdata('uid'))){?>	
+						<li class="has-children">Hi, <?php echo $this->session->userdata('username'); ?>
+						<ul class="sub-menu">
+							<li><a href="<?php echo base_url() ?>login/logout">Logout</a></li>
+						</ul>
+						</li>									
+					<?php }else{?>					
+					<li class="has-children">
 						<a title="">Have Account?</a>
 						<ul class="sub-menu">
 			            <li><a href="<?php echo base_url() ?>login">Login</a></li>
 			            <li><a href="<?php echo base_url() ?>register">Register</a></li>
 			         </ul>
-					</li>									
+					</li>	
+					<?php }?>
 				</ul>
 			</nav> <!-- end main-nav-wrap -->
 
