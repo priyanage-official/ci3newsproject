@@ -17,7 +17,7 @@
 						<?php if($this->session->tempdata('error')){?>
 							<span class="text-danger"><?php echo $this->session->tempdata('error'); ?></span>
 						<?php } ?>
-						<form id="cForm" action="javascript:void(0)" method="post" class="cForm">
+						<form id="cForm" action="javascript:void(0)" method="post" class="cForm" enctype="multipart/form-data" >
 	  					   <fieldset>
 
 	                     <div class="form-field">
@@ -45,7 +45,7 @@
 							<span class="text-danger"><?php echo form_error('message')?></span>
 	                     </div>
 
-	                     <button type="submit" class="submit button-primary full-width-on-mobile">Submit</button>
+	                     <button type="submit" id="submitBtn" class="submit button-primary full-width-on-mobile">Submit</button>
 
 	  					   </fieldset>
 						</form>
@@ -68,10 +68,11 @@
 					},
 					email : {
 						required : true,
-						email : true
+						email : true,
 					},
 					phone : {
-						required : true
+						required : true,
+						number: true
 					},
 					subject : {
 						required : true
@@ -83,23 +84,26 @@
 				messages : {
 					name : 'Your Name Is Required!',
 					email : 'Please Enter Correct Email!',
-					phone : 'Your Phonenumber Is Required!',
+					phone : 'Your Phonenumber should be number!',
 					subject : 'Subject Is Required!',
 					message : 'Message Is Required!'
 					
 				},
 				submitHandler : function(form){
 					
+
 					let formData = $('#cForm').serialize();
-					
+					$('#submitBtn').css('background','grey');
+					$('#submitBtn').attr('disabled','disabled');
+
 					$.ajax({
 						method: 'post',
 						url : '<?php echo base_url() ?>contact/contactForm',
 						data : formData,
 						dataType: 'json',
 						success : function(response){
-							
-							window.location.href = '<?php echo base_url()?>contact';
+							//console.log('hi '+response);
+							window.location.href = "<?php echo base_url()?>contact";
 							
 						}
 					})
