@@ -18,7 +18,7 @@
                     <?php if(!empty($this->session->userdata('uid'))){?>	
 						<li class="has-children">Hi, <?php echo $this->session->userdata('username'); ?>
 						<ul class="sub-menu">
-							<li><a href="<?php echo base_url() ?>login/logout">Logout</a></li>
+							<li><a href="<?php echo base_url() ?>logout">Logout</a></li>
 						</ul>
 						</li>									
 					<?php }else{?>					
